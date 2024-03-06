@@ -11,22 +11,22 @@ provider "aws" {
 }
 
 variable "function_name" {
-  default     = "hello_world_2"
+  default     = "hello_world_4"
   type        = string
 }
 
 variable "lamda_role" {
-  default     = "lamda_role_2"
+  default     = "lamda_role_4"
   type        = string
 }
 
 variable "stage" {
-  default     = "test_2"
+  default     = "test_4"
   type        = string
 }
 
 variable "bucket" {
-  default     = "abugov-test-bucket-2"
+  default     = "abugov-test-bucket-4"
   type        = string
 }
 
@@ -60,8 +60,7 @@ resource "aws_lambda_function" "lambda_function" {
   role = "${aws_iam_role.lambda_exec.arn}"
 }
 
-# IAM role which dictates what other AWS services the Lambda function
-# may access.
+# IAM role which dictates what other AWS services the Lambda function may access
 resource "aws_iam_role" "lambda_exec" {
   name = var.lamda_role
 
@@ -86,27 +85,10 @@ resource "aws_api_gateway_rest_api" "api_gateway" {
   name        = var.function_name
 }
 
-resource "aws_api_gateway_resource" "proxy" {
+resource "aws_api_gateway_resource" "resource" {
   rest_api_id = "${aws_api_gateway_rest_api.api_gateway.id}"
   parent_id   = "${aws_api_gateway_rest_api.api_gateway.root_resource_id}"
   path_part   = var.function_name
-}
-
-resource "aws_api_gateway_method" "proxy" {
-  rest_api_id   = "${aws_api_gateway_rest_api.api_gateway.id}"
-  resource_id   = "${aws_api_gateway_resource.proxy.id}"
-  http_method   = "ANY"
-  authorization = "NONE"
-}
-
-resource "aws_api_gateway_integration" "lambda" {
-  rest_api_id = "${aws_api_gateway_rest_api.api_gateway.id}"
-  resource_id = "${aws_api_gateway_method.proxy.resource_id}"
-  http_method = "${aws_api_gateway_method.proxy.http_method}"
-
-  integration_http_method = "POST"
-  type                    = "AWS_PROXY"
-  uri                     = "${aws_lambda_function.lambda_function.invoke_arn}"
 }
 
 resource "aws_api_gateway_method" "proxy_root" {
@@ -127,10 +109,7 @@ resource "aws_api_gateway_integration" "lambda_root" {
 }
 
 resource "aws_api_gateway_deployment" "deployment" {
-  depends_on = [
-    aws_api_gateway_integration.lambda,
-    aws_api_gateway_integration.lambda_root,
-  ]
+  depends_on = [aws_api_gateway_integration.lambda_root]
 
   rest_api_id = "${aws_api_gateway_rest_api.api_gateway.id}"
   stage_name  = var.stage
