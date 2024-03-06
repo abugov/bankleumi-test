@@ -9,13 +9,13 @@ pipeline {
         }
         stage('Terraform init') {
             steps {
-                sh 'chmod +x terraform && ./terraform init'
+                sh '/opt/homebrew/bin/terraform init'
             }
         }
         stage('Terraform apply') {
             steps {
                 //sh './terraform apply --auto-approve'
-                sh '/opt/homebrew/bin/aws --version && ./terraform plan'
+                sh '/opt/homebrew/bin/aws --version && /opt/homebrew/bin/terraform plan'
             }
         }
     }
