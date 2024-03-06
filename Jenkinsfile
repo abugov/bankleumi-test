@@ -9,13 +9,13 @@ pipeline {
         }
         stage('Terraform init') {
             steps {
-                sh 'chmod +x terraform && terraform init'
+                sh 'chmod +x terraform && ./terraform init'
             }
         }
         stage('Terraform apply') {
             steps {
-                //sh 'terraform apply --auto-approve'
-                sh 'terraform plan'
+                //sh './terraform apply --auto-approve'
+                sh './terraform plan'
             }
         }
     }
