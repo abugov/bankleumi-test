@@ -18,13 +18,13 @@ pipeline {
         }
         stage('Terraform init') {
             steps {
-                sh '${params.TERRAFORM_BINARY} init'
+                sh "${params.TERRAFORM_BINARY} init"
             }
         }
         stage('Terraform apply') {
             steps {
                 //sh '/opt/homebrew/bin/aws --version && ${params.TERRAFORM_BINARY} plan'
-                sh '${params.TERRAFORM_BINARY} apply --auto-approve'
+                sh "${params.TERRAFORM_BINARY} apply --auto-approve"
             }
         }
     }
