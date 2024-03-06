@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Terraform init') {
             steps {
-                sh 'terraform init'
+                sh 'chmod +x terraform && terraform init'
             }
         }
         stage('Terraform apply') {
