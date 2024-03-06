@@ -10,30 +10,39 @@ provider "aws" {
   region  = "us-east-1"
 }
 
+# lambda function name and api gateway name.
 variable "function_name" {
-  default     = "hello_world_6"
+  default     = "hello_world_8"
   type        = string
 }
 
+# lambda role name.
 variable "lamda_role" {
-  default     = "lamda_role_6"
+  default     = "lamda_role_8"
   type        = string
 }
 
+# stage name of the api gateway deployment.
 variable "stage" {
-  default     = "test_6"
+  default     = "test_8"
   type        = string
 }
 
+# bucket name which will be created to store the lambda code.
 variable "bucket" {
-  default     = "abugov-test-bucket-6"
+  default     = "abugov-test-bucket-8"
+  type        = string
+}
+
+variable "lambda_zip" {
+  default     = "lambda.zip"
   type        = string
 }
 
 data "archive_file" "lambda_zip_file" {
   type        = "zip"
   source_file = "${path.module}/index.mjs"
-  output_path = "${path.module}/lambda.zip"
+  output_path = "${path.module}/${var.lambda_zip}"
 }
 
 resource "aws_s3_bucket" "code_bucket" {
@@ -42,7 +51,7 @@ resource "aws_s3_bucket" "code_bucket" {
 
 resource "aws_s3_object" "initial_lambda_zip" {
   bucket = aws_s3_bucket.code_bucket.id
-  key    = "lambda.zip"
+  key    = var.lambda_zip
   source = data.archive_file.lambda_zip_file.output_path
 }
 
@@ -51,7 +60,7 @@ resource "aws_lambda_function" "lambda_function" {
   function_name = var.function_name
 
   s3_bucket        = aws_s3_bucket.code_bucket.bucket
-  s3_key           = "lambda.zip"
+  s3_key           = var.lambda_zip
 
   handler = "index.handler"
   runtime = "nodejs20.x"
