@@ -15,7 +15,7 @@ pipeline {
         stage('Terraform apply') {
             steps {
                 //sh './terraform apply --auto-approve'
-                sh './terraform plan'
+                sh 'whereis aws && aws --version && aws --version && ./terraform plan'
             }
         }
     }
