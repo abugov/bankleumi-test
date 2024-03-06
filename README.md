@@ -5,7 +5,9 @@
 
 3. to simplify terraform integration and save me time (since i am running jenkins on mac) i am using TERRAFORM_BINARY param, in real-life scenario i would use the terraform plugin as described https://spacelift.io/blog/terraform-jenkins
 
-4. Assumption #1: pipeline is run only once
+4. Assumption #1: terraform is responsible to upload to S3
+
+5. Assumption #2: pipeline is run only once
 	* I assumed there is no need to support re-run.
 	* in real-life scenario i would have implemented this differently to support updates of the lambda-code as such:
 		* add another lambda named "refresh lambda" to terraform, which is responsible to update the code of the original lambda. using "aws_s3_bucket_notification" i will trigger the "refresh lambda"
@@ -20,7 +22,7 @@
 			* in main.tf add: terraform { backend "s3" { bucket = "my-bucket" key = "terraform.tfstate" } }
 			* as last step in Jenkins bckup the state: "aws s3 cp terraform.tfstate s3://my-bucket"
 
-5. Assumption #2: authentication is not required
+6. Assumption #3: authentication is not required
 	* I assumed there is no need to authenticate the end-user.
 	* in real-life scenario i would not expose the lambda and api gateway to public use by implementing the following:
 		* add IAM or API Key authorization to my lambda

@@ -16,6 +16,11 @@ pipeline {
                 git branch: 'master', url: 'https://github.com/abugov/bankleumi-test'
             }
         }
+        stage('Build Lambda') {
+            steps {
+                sh "sed 's/BUILD_NUMBER/${BUILD_NUMBER}/g' lambda_template.txt > index.mjs"
+            }
+        }
         stage('Terraform init') {
             steps {
                 sh "${params.TERRAFORM_BINARY} init"
