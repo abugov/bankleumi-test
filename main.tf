@@ -1,6 +1,6 @@
-# general comments:
-# 1. based on: https://registry.terraform.io/providers/hashicorp/aws/2.34.0/docs/guides/serverless-with-aws-lambda-and-api-gateway
-# 2. i've put terraform in one file to simplify, in practice i would split into multiple files like variables.tf, outputs.tf, ...
+####################
+# please see General Comments in README.md
+####################
 
 terraform {
   required_version = ">= 1.5.7"
@@ -11,22 +11,22 @@ provider "aws" {
 }
 
 variable "function_name" {
-  default     = "hello_world_4"
+  default     = "hello_world_6"
   type        = string
 }
 
 variable "lamda_role" {
-  default     = "lamda_role_4"
+  default     = "lamda_role_6"
   type        = string
 }
 
 variable "stage" {
-  default     = "test_4"
+  default     = "test_6"
   type        = string
 }
 
 variable "bucket" {
-  default     = "abugov-test-bucket-4"
+  default     = "abugov-test-bucket-6"
   type        = string
 }
 
@@ -38,7 +38,6 @@ data "archive_file" "lambda_zip_file" {
 
 resource "aws_s3_bucket" "code_bucket" {
   bucket = var.bucket
-  #TODO: acl    = "private"
 }
 
 resource "aws_s3_object" "initial_lambda_zip" {
