@@ -15,7 +15,7 @@ pipeline {
         stage('Terraform apply') {
             steps {
                 //sh './terraform apply --auto-approve'
-                sh 'whereis aws && aws --version && aws --version && ./terraform plan'
+                sh '/opt/homebrew/bin/aws --version && ./terraform plan'
             }
         }
     }
