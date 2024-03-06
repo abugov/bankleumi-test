@@ -3,7 +3,7 @@
 
 2. i've based my terraform solution on: https://registry.terraform.io/providers/hashicorp/aws/2.34.0/docs/guides/serverless-with-aws-lambda-and-api-gateway
 
-3. to simplify terraform integration and same me time (since i am running jenkins on mac) i am using TERRAFORM_BINARY param, in real-life scenario i would use the terraform plugin as described https://spacelift.io/blog/terraform-jenkins
+3. to simplify terraform integration and save me time (since i am running jenkins on mac) i am using TERRAFORM_BINARY param, in real-life scenario i would use the terraform plugin as described https://spacelift.io/blog/terraform-jenkins
 
 4. Assumption #1: pipeline is run only once
 	* I assumed there is no need to support re-run.
