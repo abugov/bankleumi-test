@@ -11,22 +11,22 @@ provider "aws" {
 }
 
 variable "function_name" {
-  default     = "hello_world14"
+  default     = "hello_world_1"
   type        = string
 }
 
 variable "lamda_role" {
-  default     = "lamda_role14"
+  default     = "lamda_role_1"
   type        = string
 }
 
 variable "stage" {
-  default     = "test14"
+  default     = "test_1"
   type        = string
 }
 
 variable "bucket" {
-  default     = "abugov-test-bucket14"
+  default     = "abugov-test-bucket_1"
   type        = string
 }
 
