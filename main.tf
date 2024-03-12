@@ -12,25 +12,25 @@ provider "aws" {
 
 # lambda function name and api gateway name.
 variable "function_name" {
-  default     = "hello_world_9"
+  default     = "hello_world_11"
   type        = string
 }
 
 # lambda role name.
 variable "lamda_role" {
-  default     = "lamda_role_9"
+  default     = "lamda_role_11"
   type        = string
 }
 
 # stage name of the api gateway deployment.
 variable "stage" {
-  default     = "test_9"
+  default     = "test_11"
   type        = string
 }
 
 # bucket name which will be created to store the lambda code.
 variable "bucket" {
-  default     = "abugov-test-bucket-9"
+  default     = "abugov-test-bucket-11"
   type        = string
 }
 
