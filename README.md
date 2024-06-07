@@ -37,6 +37,8 @@
 	* brew install jenkins-lts
 	* brew services start jenkins-lts
 	* cat /Users/abugov/.jenkins/secrets/initialAdminPassword
+
+test1
 	* install suggested plugins
 	* create global secret-text for aws progrematic access: aws-secret-key-id, aws-secret-access-key
 	* create pipeline from https://github.com/abugov/bankleumi-test
